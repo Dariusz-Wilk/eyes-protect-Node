@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { render } from 'react-dom';
 
 const App = () => {
-	const [status, setStatus] = useState('rest');
+	const [status, setStatus] = useState('off');
 	const [time, setTime] = useState(1200);
 	const [timer, setTimer] = useState(null);
 
@@ -18,6 +18,35 @@ const App = () => {
 	};
 
 	const formattedTime = useFormatTime(time);
+
+	useEffect(() => {
+		if (time === 0) {
+			setStatus(prevStatus => {
+				const newStatus = prevStatus === 'work' ? 'rest' : 'work';
+				setTime(newStatus === 'work' ? 1200 : 20);
+				return newStatus;
+			});
+		}
+	}, [time]);
+
+	const startTimer = () => {
+		if (timer !== null) {
+			clearInterval(timer);
+		}
+		setStatus('work');
+		setTime(1200);
+		setTimer(
+			setInterval(() => {
+				setTime(prevTime => {
+					if (prevTime > 0) {
+						return prevTime - 1;
+					} else {
+						return prevTime;
+					}
+				});
+			}, 1000)
+		);
+	};
 
 	return (
 		<div>
@@ -44,7 +73,9 @@ const App = () => {
 			<div className={`timer ${status !== 'off' ? 'show' : 'hide'}`}>
 				{formattedTime}
 			</div>
-			<button className={`btn ${status === 'off' ? 'show' : 'hide'}`}>
+			<button
+				className={`btn ${status === 'off' ? 'show' : 'hide'}`}
+				onClick={startTimer}>
 				Start
 			</button>
 			<button className={`btn ${status !== 'off' ? 'show' : 'hide'}`}>
