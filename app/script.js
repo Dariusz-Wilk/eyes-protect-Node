@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { render } from 'react-dom';
 
 const App = () => {
 	const [status, setStatus] = useState('rest');
 	const [time, setTime] = useState(1200);
-	const [timemr, setTimer] = useState(null);
+	const [timer, setTimer] = useState(null);
 
-	const formatTime = time => {
-		const mins = Math.floor((time / 60) % 60)
-			.toString()
-			.padStart(2, '0');
-		const secs = (time % 60).toString().padStart(2, '0');
+	const useFormatTime = time => {
+		return useMemo(() => {
+			const mins = Math.floor((time / 60) % 60)
+				.toString()
+				.padStart(2, '0');
+			const secs = (time % 60).toString().padStart(2, '0');
 
-		return `${mins}:${secs}`;
+			return `${mins}:${secs}`;
+		}, [time]);
 	};
 
-	console.log(formatTime(time));
+	const formattedTime = useFormatTime(time);
 
 	return (
 		<div>
@@ -40,7 +42,7 @@ const App = () => {
 				className={status === 'rest' ? 'show' : 'hide'}
 			/>
 			<div className={`timer ${status !== 'off' ? 'show' : 'hide'}`}>
-				{formatTime(time)}
+				{formattedTime}
 			</div>
 			<button className={`btn ${status === 'off' ? 'show' : 'hide'}`}>
 				Start
