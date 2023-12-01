@@ -20,32 +20,29 @@ const App = () => {
 	const formattedTime = useFormatTime(time);
 
 	useEffect(() => {
-		if (time === 0) {
-			setStatus(prevStatus => {
-				const newStatus = prevStatus === 'work' ? 'rest' : 'work';
-				setTime(newStatus === 'work' ? 1200 : 20);
-				return newStatus;
-			});
+		if (time === 0 && status === 'work') {
+			setTime(20);
+			setStatus('rest');
+		} else if (time === 0 && status === 'rest') {
+			setTime(1200);
+			setStatus('work');
 		}
 	}, [time]);
 
 	const startTimer = () => {
-		if (timer !== null) {
-			clearInterval(timer);
-		}
-		setStatus('work');
 		setTime(1200);
+		setStatus('work');
 		setTimer(
 			setInterval(() => {
-				setTime(prevTime => {
-					if (prevTime > 0) {
-						return prevTime - 1;
-					} else {
-						return prevTime;
-					}
-				});
+				setTime(time => time - 1);
 			}, 1000)
 		);
+	};
+
+	const stopTimer = () => {
+		setTimer(clearInterval(timer));
+		setTime(0);
+		setStatus('off');
 	};
 
 	return (
@@ -78,7 +75,9 @@ const App = () => {
 				onClick={startTimer}>
 				Start
 			</button>
-			<button className={`btn ${status !== 'off' ? 'show' : 'hide'}`}>
+			<button
+				className={`btn ${status !== 'off' ? 'show' : 'hide'}`}
+				onClick={stopTimer}>
 				Stop
 			</button>
 			<button className="btn btn-close">X</button>
