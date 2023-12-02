@@ -57,7 +57,7 @@ const App = () => {
 	};
 
 	return (
-		<div>
+		<div className="app">
 			<h1>Protect your eyes</h1>
 			<div className={status === 'off' ? 'show' : 'hide'}>
 				<p>

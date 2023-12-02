@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
+html {
+	-webkit-app-region: drag;
+	height: 100%;
+}
 body {
 	background: #282c34;
 	color: #fff;
@@ -23,6 +26,10 @@ p {
 
 .hide {
 	display: none;
+}
+
+.app button {
+	-webkit-app-region: none;
 }
 
 .btn {
