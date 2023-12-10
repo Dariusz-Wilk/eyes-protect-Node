@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { render } from 'react-dom';
+import Button from './components/Button/Button';
 
 const App = () => {
 	const [status, setStatus] = useState('off');
@@ -81,7 +82,22 @@ const App = () => {
 			<div className={`timer ${status !== 'off' ? 'show' : 'hide'}`}>
 				{formattedTime}
 			</div>
-			<button
+			<Button
+				clickAction={startTimer}
+				className={`btn ${status === 'off' ? 'show' : 'hide'}`}>
+				Start
+			</Button>
+			<Button
+				clickAction={stopTimer}
+				className={`btn ${status === 'off' ? 'show' : 'hide'}`}>
+				Stop
+			</Button>
+			<Button clickAction={closeApp} className={'btn btn-close'}>
+				X
+			</Button>
+
+			{/* Version without components */}
+			{/* <button
 				className={`btn ${status === 'off' ? 'show' : 'hide'}`}
 				onClick={startTimer}>
 				Start
@@ -93,7 +109,7 @@ const App = () => {
 			</button>
 			<button className="btn btn-close" onClick={closeApp}>
 				X
-			</button>
+			</button> */}
 		</div>
 	);
 };
