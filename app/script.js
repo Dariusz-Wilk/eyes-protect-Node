@@ -89,27 +89,12 @@ const App = () => {
 			</Button>
 			<Button
 				clickAction={stopTimer}
-				className={`btn ${status === 'off' ? 'show' : 'hide'}`}>
+				className={`btn ${status === 'off' ? 'hide' : 'show'}`}>
 				Stop
 			</Button>
 			<Button clickAction={closeApp} className={'btn btn-close'}>
 				X
 			</Button>
-
-			{/* Version without components */}
-			{/* <button
-				className={`btn ${status === 'off' ? 'show' : 'hide'}`}
-				onClick={startTimer}>
-				Start
-			</button>
-			<button
-				className={`btn ${status !== 'off' ? 'show' : 'hide'}`}
-				onClick={stopTimer}>
-				Stop
-			</button>
-			<button className="btn btn-close" onClick={closeApp}>
-				X
-			</button> */}
 		</div>
 	);
 };

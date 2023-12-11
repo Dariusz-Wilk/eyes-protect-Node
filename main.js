@@ -12,7 +12,7 @@ function main() {
 		},
 		width: 520,
 		height: 650,
-		// frame: false,
+		frame: false,
 	});
 
 	// load app/index.html as the window content
